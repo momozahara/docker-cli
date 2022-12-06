@@ -1,69 +1,80 @@
 # DOCKER-CLI
 A cli that will execute docker compose command on server via [OpenSSH](https://man.openbsd.org/ssh.1).
 
-### requirements
+### Requirements
 [OpenSSH](https://man.openbsd.org/ssh.1) \
 Linux user with root privilege (if you have to run sudo in order run docker)
 
 <sub>Testing on Windows to Ubuntu.</sub>
 
 ## Installation
-### remote
+### Remote
 ```bash
 cargo install --git https://github.com/momozahara/docker-cli.git
 ```
-### local
+### Local
 ```bash
 cargo install --path .
 ```
 
 ## Command
-### env
-create .env that store d_username d_hostname d_path inside of it.
+### Profile
+Create user profile that contained username, hostname, path inside of it.
 ```bash
 compose env \
 --username <USERNAME> \
 --hostname <HOSTNAME> \
---path <PATH> # optional
+--path <PATH> \
+--profile <PROFILE>
 ```
-<sup>$HOME/pcode-cli/docker/default.env</sup>
-### up
-up docker-compose.yaml at specific path.
+<sup>$HOME/pcode-cli/docker/{profile}.env</sup>
+### Up
+Up docker-compose.yaml at specific path.
 ```bash
 compose up \
---username <USERNAME> \ # optional if set in env
---hostname <HOSTNAME> \ # optional if set in env
---path <PATH> # optional if set in env
+# conflicts with profile
+--username <USERNAME> \
+--hostname <HOSTNAME> \
+--path <PATH> \
+
+--profile <PROFILE> # optional
 ```
-### down
-down docker-compose.yaml at specific path.
+### Down
+Down docker-compose.yaml at specific path.
 ```bash
 compose down \
---username <USERNAME> \ # optional if set in env
---hostname <HOSTNAME> \ # optional if set in env
---path <PATH> # optional if set in env
+# conflicts with profile
+--username <USERNAME> \
+--hostname <HOSTNAME> \
+--path <PATH> \
+
+--profile <PROFILE> # optional
 --rmi <RMI> # optional [local, all]
 ```
-### start
-start docker-compose.yml at specific path.
+### Start
+Start docker-compose.yml at specific path.
 ```bash
 compose start \
---username <USERNAME> \ # optional if set in env
---hostname <HOSTNAME> \ # optional if set in env
---path <PATH> # optional if set in env
+# conflicts with profile
+--username <USERNAME> \
+--hostname <HOSTNAME> \
+--path <PATH> \
+
+--profile <PROFILE> # optional
 ```
-### stop
-stop docker-compose.yml at specific path.
+### Stop
+Stop docker-compose.yml at specific path.
 ```bash
 compose stop \
---username <USERNAME> \ # optional if set in env
---hostname <HOSTNAME> \ # optional if set in env
---path <PATH> # optional if set in env
+# conflicts with profile
+--username <USERNAME> \
+--hostname <HOSTNAME> \
+--path <PATH> \
+
+--profile <PROFILE> # optional
 ```
 
 ## ROADMAP
 <sup>if i am really going to maintain it.</sup>
-
-* env profile support
 * other compose command \
   <sup>i can actually do this one right now but...</sup>

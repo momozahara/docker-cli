@@ -4,20 +4,34 @@ mod cli;
 use std::process::Command;
 
 fn main() {
-    let matches = cli::init(env::init()).get_matches();
+    let matches = cli::init().get_matches();
+
+    let profile = matches.get_one::<String>("profile");
+
+    let username: String;
+    let hostname: String;
+    let path: String;
+    let rmi: Option<&String>;
 
     match matches.subcommand() {
         Some(("env", sub_matches)) => {
-            let username = sub_matches.get_one::<String>("username").unwrap();
-            let hostname = sub_matches.get_one::<String>("hostname").unwrap();
-            let path = sub_matches.get_one::<String>("path").unwrap();
+            username = sub_matches.get_one::<String>("username").unwrap().clone();
+            hostname = sub_matches.get_one::<String>("hostname").unwrap().clone();
+            path = sub_matches.get_one::<String>("path").unwrap().clone();
 
-            env::create(username, hostname, path);
+            env::create(username, hostname, path, profile);
         },
         Some(("up", sub_matches)) => {
-            let username = sub_matches.get_one::<String>("username").unwrap();
-            let hostname = sub_matches.get_one::<String>("hostname").unwrap();
-            let path = sub_matches.get_one::<String>("path").unwrap();
+            match profile {
+                Some(_) => {
+                    (username, hostname, path) = env::load(profile);
+                },
+                None => {
+                    username = sub_matches.get_one::<String>("username").unwrap().clone();
+                    hostname = sub_matches.get_one::<String>("hostname").unwrap().clone();
+                    path = sub_matches.get_one::<String>("path").unwrap().clone();
+                },
+            }
 
             let output = Command::new("ssh")
                 .arg("-t")
@@ -31,10 +45,17 @@ fn main() {
             println!("{}", std::str::from_utf8(stdout).unwrap());
         },
         Some(("down", sub_matches)) => {
-            let username = sub_matches.get_one::<String>("username").unwrap();
-            let hostname = sub_matches.get_one::<String>("hostname").unwrap();
-            let path = sub_matches.get_one::<String>("path").unwrap();
-            let rmi = sub_matches.get_one::<String>("rmi");
+            match profile {
+                Some(_) => {
+                    (username, hostname, path) = env::load(profile);
+                },
+                None => {
+                    username = sub_matches.get_one::<String>("username").unwrap().clone();
+                    hostname = sub_matches.get_one::<String>("hostname").unwrap().clone();
+                    path = sub_matches.get_one::<String>("path").unwrap().clone();
+                },
+            }
+            rmi = sub_matches.get_one::<String>("rmi");
 
             let output = Command::new("ssh")
                 .arg("-t")
@@ -53,9 +74,16 @@ fn main() {
             println!("{}", std::str::from_utf8(stdout).unwrap());
         },
         Some(("start", sub_matches)) => {
-            let username = sub_matches.get_one::<String>("username").unwrap();
-            let hostname = sub_matches.get_one::<String>("hostname").unwrap();
-            let path = sub_matches.get_one::<String>("path").unwrap();
+            match profile {
+                Some(_) => {
+                    (username, hostname, path) = env::load(profile);
+                },
+                None => {
+                    username = sub_matches.get_one::<String>("username").unwrap().clone();
+                    hostname = sub_matches.get_one::<String>("hostname").unwrap().clone();
+                    path = sub_matches.get_one::<String>("path").unwrap().clone();
+                },
+            }
 
             let output = Command::new("ssh")
                 .arg("-t")
@@ -67,9 +95,16 @@ fn main() {
             println!("{}", std::str::from_utf8(stdout).unwrap());
         },
         Some(("stop", sub_matches))=> {
-            let username = sub_matches.get_one::<String>("username").unwrap();
-            let hostname = sub_matches.get_one::<String>("hostname").unwrap();
-            let path = sub_matches.get_one::<String>("path").unwrap();
+            match profile {
+                Some(_) => {
+                    (username, hostname, path) = env::load(profile);
+                },
+                None => {
+                    username = sub_matches.get_one::<String>("username").unwrap().clone();
+                    hostname = sub_matches.get_one::<String>("hostname").unwrap().clone();
+                    path = sub_matches.get_one::<String>("path").unwrap().clone();
+                },
+            }
 
             let output = Command::new("ssh")
                 .arg("-t")
