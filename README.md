@@ -20,7 +20,7 @@ compose env \
 ### up
 up docker-compose.yaml at specific path.
 ```bash
-compose run \
+compose up \
 --username <USERNAME> \ # optional if set in env
 --hostname <HOSTNAME> \ # optional if set in env
 --path <PATH> # optional if set in env
@@ -28,7 +28,7 @@ compose run \
 ### down
 down docker-compose.yaml at specific path.
 ```bash
-compose run \
+compose down \
 --username <USERNAME> \ # optional if set in env
 --hostname <HOSTNAME> \ # optional if set in env
 --path <PATH> # optional if set in env
@@ -37,7 +37,7 @@ compose run \
 ### start
 start docker-compose.yml at specific path.
 ```bash
-compose run \
+compose start \
 --username <USERNAME> \ # optional if set in env
 --hostname <HOSTNAME> \ # optional if set in env
 --path <PATH> # optional if set in env
