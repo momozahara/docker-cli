@@ -7,20 +7,13 @@ use std::{
 
 pub fn init() -> (&'static str, &'static str, &'static str) {
   let home_path = home_dir().and_then(|a| Some(a.join("pcode-cli/docker/.env"))).unwrap();
-  let results = dotenv::from_path(home_path.as_path());
+  dotenv::from_path(home_path.as_path()).unwrap_or(());
 
-  let mut username = "";
-  let mut hostname = "";
-  let mut path = "";
+  let username = Box::leak(env::var("d_username").unwrap_or(String::from("")).into_boxed_str());
+  let hostname = Box::leak(env::var("d_hostname").unwrap_or(String::from("")).into_boxed_str());
+  let path = Box::leak(env::var("d_path").unwrap_or(String::from("")).into_boxed_str());
 
-  match results {
-    Ok(_) => {
-      username = Box::leak(env::var("username").unwrap().into_boxed_str());
-      hostname = Box::leak(env::var("hostname").unwrap().into_boxed_str());
-      path = Box::leak(env::var("docker_path").unwrap().into_boxed_str());
-    },
-    Err(_) => (),
-  }
+  println!("{} {} {}", username, hostname, path);
 
   (username, hostname, path)
 }
@@ -32,5 +25,5 @@ pub fn create(username: &String, hostname: &String, d_path: &String) {
   fs::create_dir_all(prefix).unwrap();
   fs::remove_file(path).unwrap_or(());
   let mut file = fs::File::create(path).unwrap();
-  file.write(format!("USERNAME={}\nHOSTNAME={}\nDOCKER_PATH={}", username, hostname, d_path).as_bytes()).unwrap();
+  file.write(format!("D_USERNAME={}\nD_HOSTNAME={}\nD_PATH={}", username, hostname, d_path).as_bytes()).unwrap();
 }
