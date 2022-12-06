@@ -22,10 +22,10 @@ cargo install --path .
 Create user profile that contained username, hostname, path inside of it.
 ```bash
 compose env \
---username <USERNAME> \
---hostname <HOSTNAME> \
---path <PATH> \
---profile <PROFILE>
+--username <USERNAME> \ # require
+--hostname <HOSTNAME> \ # require
+--path <PATH> \ # require
+--profile <PROFILE> # require
 ```
 <sup>$HOME/pcode-cli/docker/{profile}.env</sup>
 ### Up
@@ -33,9 +33,9 @@ Up docker-compose.yaml at specific path.
 ```bash
 compose up \
 # conflicts with profile
---username <USERNAME> \
---hostname <HOSTNAME> \
---path <PATH> \
+--username <USERNAME> \ # require
+--hostname <HOSTNAME> \ # require
+--path <PATH> \ # require
 
 --profile <PROFILE> # optional
 ```
@@ -44,9 +44,9 @@ Down docker-compose.yaml at specific path.
 ```bash
 compose down \
 # conflicts with profile
---username <USERNAME> \
---hostname <HOSTNAME> \
---path <PATH> \
+--username <USERNAME> \ # require
+--hostname <HOSTNAME> \ # require
+--path <PATH> \ # require
 
 --profile <PROFILE> # optional
 --rmi <RMI> # optional [local, all]
@@ -56,9 +56,9 @@ Start docker-compose.yml at specific path.
 ```bash
 compose start \
 # conflicts with profile
---username <USERNAME> \
---hostname <HOSTNAME> \
---path <PATH> \
+--username <USERNAME> \ # require
+--hostname <HOSTNAME> \ # require
+--path <PATH> \ # require
 
 --profile <PROFILE> # optional
 ```
@@ -67,9 +67,9 @@ Stop docker-compose.yml at specific path.
 ```bash
 compose stop \
 # conflicts with profile
---username <USERNAME> \
---hostname <HOSTNAME> \
---path <PATH> \
+--username <USERNAME> \ # require
+--hostname <HOSTNAME> \ # require
+--path <PATH> \ # require
 
 --profile <PROFILE> # optional
 ```
