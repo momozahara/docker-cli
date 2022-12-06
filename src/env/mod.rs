@@ -6,7 +6,7 @@ use std::{
 };
 
 pub fn init() -> (&'static str, &'static str, &'static str) {
-  let home_path = home_dir().and_then(|a| Some(a.join("pcode-cli/docker/.env"))).unwrap();
+  let home_path = home_dir().and_then(|a| Some(a.join("pcode-cli/docker/default.env"))).unwrap();
   dotenv::from_path(home_path.as_path()).unwrap_or(());
 
   let username = Box::leak(env::var("d_username").unwrap_or(String::from("")).into_boxed_str());
@@ -17,7 +17,7 @@ pub fn init() -> (&'static str, &'static str, &'static str) {
 }
 
 pub fn create(username: &String, hostname: &String, d_path: &String) {
-  let home_path = home_dir().and_then(|a| Some(a.join("pcode-cli/docker/.env"))).unwrap();
+  let home_path = home_dir().and_then(|a| Some(a.join("pcode-cli/docker/default.env"))).unwrap();
   let path = home_path.as_path();
   let prefix = path.parent().unwrap();
   fs::create_dir_all(prefix).unwrap();

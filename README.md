@@ -9,14 +9,14 @@ Linux user with root privilege (if you have to run sudo in order run docker)
 
 ## Command
 ### env
-create .env that store username hostname docker_path inside of it.
+create .env that store d_username d_hostname d_path inside of it.
 ```bash
 compose env \
 --username <USERNAME> \
 --hostname <HOSTNAME> \
 --path <PATH> # optional
 ```
-<sup>$HOME/pcode-cli/docker/.env</sup>
+<sup>$HOME/pcode-cli/docker/default.env</sup>
 ### up
 up docker-compose.yaml at specific path.
 ```bash
