@@ -7,6 +7,16 @@ Linux user with root privilege (if you have to run sudo in order run docker)
 
 <sub>Testing on Windows to Ubuntu.</sub>
 
+## Installation
+### remote
+```bash
+cargo install --git https://github.com/momozahara/docker-cli.git
+```
+### local
+```bash
+cargo install --path .
+```
+
 ## Command
 ### env
 create .env that store d_username d_hostname d_path inside of it.
