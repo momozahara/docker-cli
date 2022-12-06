@@ -42,7 +42,7 @@ compose run \
 --hostname <HOSTNAME> \ # optional if set in env
 --path <PATH> # optional if set in env
 ```
-### start
+### stop
 stop docker-compose.yml at specific path.
 ```bash
 compose stop \
