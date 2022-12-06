@@ -41,8 +41,7 @@ fn main() {
                 .arg("-d")
                 .output()
                 .expect("command failed to start");
-            let stdout = output.stdout.as_slice();
-            println!("{}", std::str::from_utf8(stdout).unwrap());
+            println!("{}", String::from_utf8_lossy(&output.stdout));
         },
         Some(("down", sub_matches)) => {
             match profile {
@@ -70,8 +69,7 @@ fn main() {
                 )
                 .output()
                 .expect("command failed to start");
-            let stdout = output.stdout.as_slice();
-            println!("{}", std::str::from_utf8(stdout).unwrap());
+            println!("{}", String::from_utf8_lossy(&output.stdout));
         },
         Some(("start", sub_matches)) => {
             match profile {
@@ -91,8 +89,7 @@ fn main() {
                 .arg(format!("cd {} && docker compose start", path))
                 .output()
                 .expect("command failed to start");
-            let stdout = output.stdout.as_slice();
-            println!("{}", std::str::from_utf8(stdout).unwrap());
+            println!("{}", String::from_utf8_lossy(&output.stdout));
         },
         Some(("stop", sub_matches))=> {
             match profile {
@@ -112,8 +109,7 @@ fn main() {
                 .arg(format!("cd {} && docker compose stop", path))
                 .output()
                 .expect("command failed to start");
-            let stdout = output.stdout.as_slice();
-            println!("{}", std::str::from_utf8(stdout).unwrap());
+            println!("{}", String::from_utf8_lossy(&output.stdout));
         },
         _ => unreachable!(),
     }

@@ -18,15 +18,17 @@ pub fn load(profile: Option<&String>) -> (String, String, String) {
     )
   )).unwrap();
 
-  env::remove_var("username");
-  env::remove_var("hostname");
-  env::remove_var("target_path");
+  env::remove_var("USERNAME");
+  env::remove_var("HOSTNAME");
+  env::remove_var("TARGET_PATH");
 
   dotenv::from_path(target_path.as_path()).unwrap();
 
-  let username = env::var("username").unwrap();
-  let hostname = env::var("hostname").unwrap();
-  let path = env::var("target_path").unwrap();
+  println!("{}", target_path.as_path().display());
+
+  let username = env::var("USERNAME").unwrap();
+  let hostname = env::var("HOSTNAME").unwrap();
+  let path = env::var("TARGET_PATH").unwrap();
 
   (username, hostname, path)
 }
