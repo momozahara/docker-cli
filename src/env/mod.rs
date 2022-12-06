@@ -13,8 +13,6 @@ pub fn init() -> (&'static str, &'static str, &'static str) {
   let hostname = Box::leak(env::var("d_hostname").unwrap_or(String::from("")).into_boxed_str());
   let path = Box::leak(env::var("d_path").unwrap_or(String::from("")).into_boxed_str());
 
-  println!("{} {} {}", username, hostname, path);
-
   (username, hostname, path)
 }
 
