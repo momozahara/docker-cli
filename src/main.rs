@@ -24,7 +24,7 @@ fn main() {
                 .arg(format!("{}@{}", username, hostname))
                 .arg(format!("cd {} && docker compose start", path))
                 .output()
-                .expect("ls command failed to start");
+                .expect("command failed to start");
             let stdout = output.stdout.as_slice();
             println!("{}", std::str::from_utf8(stdout).unwrap());
         },
@@ -38,7 +38,7 @@ fn main() {
                 .arg(format!("{}@{}", username, hostname))
                 .arg(format!("cd {} && docker compose stop", path))
                 .output()
-                .expect("ls command failed to start");
+                .expect("command failed to start");
             let stdout = output.stdout.as_slice();
             println!("{}", std::str::from_utf8(stdout).unwrap());
         },
