@@ -17,6 +17,23 @@ compose env \
 --path <PATH> # optional
 ```
 <sup>$HOME/pcode-cli/docker/.env</sup>
+### up
+up docker-compose.yaml at specific path.
+```bash
+compose run \
+--username <USERNAME> \ # optional if set in env
+--hostname <HOSTNAME> \ # optional if set in env
+--path <PATH> # optional if set in env
+```
+### down
+down docker-compose.yaml at specific path.
+```bash
+compose run \
+--username <USERNAME> \ # optional if set in env
+--hostname <HOSTNAME> \ # optional if set in env
+--path <PATH> # optional if set in env
+--rmi <RMI> # optional [local, all]
+```
 ### start
 start docker-compose.yml at specific path.
 ```bash
