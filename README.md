@@ -2,7 +2,7 @@
 A cli that will execute docker compose command on server via [OpenSSH](https://man.openbsd.org/ssh.1).
 
 ### requirements
-[OpenSSH](https://man.openbsd.org/ssh.1) with properly id_rsa setup. \
+[OpenSSH](https://man.openbsd.org/ssh.1) \
 Linux user with root privilege (if you have to run sudo in order run docker)
 
 <sub>Testing on Windows to Ubuntu.</sub>
