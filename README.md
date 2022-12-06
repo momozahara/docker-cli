@@ -21,9 +21,9 @@ Create user profile that contained username, hostname, path inside of it.
 ```bash
 compose env \
 --username <USERNAME> \ # require
---hostname <HOSTNAME> \ # require
---path <PATH> \ # require
---profile <PROFILE> # require
+--hostname <HOSTNAME> \ # required
+--path <PATH> \ # required
+--profile <PROFILE> # required
 ```
 <sup>$HOME/pcode-cli/docker/{profile}.env</sup>
 ### Up
@@ -31,9 +31,9 @@ Up docker-compose.yaml at specific path.
 ```bash
 compose up \
 # conflicts with profile
---username <USERNAME> \ # require
---hostname <HOSTNAME> \ # require
---path <PATH> \ # require
+--username <USERNAME> \ # required
+--hostname <HOSTNAME> \ # required
+--path <PATH> \ # required
 
 --profile <PROFILE> # optional
 ```
@@ -42,9 +42,9 @@ Down docker-compose.yaml at specific path.
 ```bash
 compose down \
 # conflicts with profile
---username <USERNAME> \ # require
---hostname <HOSTNAME> \ # require
---path <PATH> \ # require
+--username <USERNAME> \ # required
+--hostname <HOSTNAME> \ # required
+--path <PATH> \ # required
 
 --profile <PROFILE> # optional
 --rmi <RMI> # optional [local, all]
@@ -54,20 +54,20 @@ Start docker-compose.yml at specific path.
 ```bash
 compose start \
 # conflicts with profile
---username <USERNAME> \ # require
---hostname <HOSTNAME> \ # require
---path <PATH> \ # require
+--username <USERNAME> \ # required
+--hostname <HOSTNAME> \ # required
+--path <PATH> \ # required
 
---profile <PROFILE> # optional
+--profile <PROFILE> # required
 ```
 ### Stop
 Stop docker-compose.yml at specific path.
 ```bash
 compose stop \
 # conflicts with profile
---username <USERNAME> \ # require
---hostname <HOSTNAME> \ # require
---path <PATH> \ # require
+--username <USERNAME> \ # required
+--hostname <HOSTNAME> \ # required
+--path <PATH> \ # required
 
 --profile <PROFILE> # optional
 ```
