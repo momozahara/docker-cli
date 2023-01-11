@@ -1,5 +1,5 @@
-mod env;
 mod cli;
+mod env;
 
 use std::process::Command;
 
@@ -11,6 +11,7 @@ fn main() {
     let username: String;
     let hostname: String;
     let path: String;
+    let build_target: Option<&String>;
     let rmi: Option<&String>;
 
     match matches.subcommand() {
@@ -20,18 +21,20 @@ fn main() {
             path = sub_matches.get_one::<String>("path").unwrap().clone();
 
             env::create(username, hostname, path, profile);
-        },
+        }
         Some(("up", sub_matches)) => {
             match profile {
                 Some(_) => {
                     (username, hostname, path) = env::load(profile);
-                },
+                }
                 None => {
                     username = sub_matches.get_one::<String>("username").unwrap().clone();
                     hostname = sub_matches.get_one::<String>("hostname").unwrap().clone();
                     path = sub_matches.get_one::<String>("path").unwrap().clone();
-                },
+                }
             }
+
+            build_target = sub_matches.get_one::<String>("build");
 
             let output = Command::new("ssh")
                 .arg("-t")
@@ -39,20 +42,26 @@ fn main() {
                 .arg(format!("cd {}", path))
                 .arg("&& docker compose up")
                 .arg("-d")
+                .arg(match build_target {
+                    Some(target) => {
+                        format!("--build {}", target)
+                    }
+                    None => "".to_owned(),
+                })
                 .output()
                 .expect("command failed to start");
             println!("{}", String::from_utf8_lossy(&output.stdout));
-        },
+        }
         Some(("down", sub_matches)) => {
             match profile {
                 Some(_) => {
                     (username, hostname, path) = env::load(profile);
-                },
+                }
                 None => {
                     username = sub_matches.get_one::<String>("username").unwrap().clone();
                     hostname = sub_matches.get_one::<String>("hostname").unwrap().clone();
                     path = sub_matches.get_one::<String>("path").unwrap().clone();
-                },
+                }
             }
             rmi = sub_matches.get_one::<String>("rmi");
 
@@ -61,26 +70,24 @@ fn main() {
                 .arg(format!("{}@{}", username, hostname))
                 .arg(format!("cd {}", path))
                 .arg("&& docker compose down")
-                .arg(
-                    match rmi {
-                        Some(r) => format!("--rmi {}", r),
-                        None => String::from(""),
-                    }
-                )
+                .arg(match rmi {
+                    Some(r) => format!("--rmi {}", r),
+                    None => String::from(""),
+                })
                 .output()
                 .expect("command failed to start");
             println!("{}", String::from_utf8_lossy(&output.stdout));
-        },
+        }
         Some(("start", sub_matches)) => {
             match profile {
                 Some(_) => {
                     (username, hostname, path) = env::load(profile);
-                },
+                }
                 None => {
                     username = sub_matches.get_one::<String>("username").unwrap().clone();
                     hostname = sub_matches.get_one::<String>("hostname").unwrap().clone();
                     path = sub_matches.get_one::<String>("path").unwrap().clone();
-                },
+                }
             }
 
             let output = Command::new("ssh")
@@ -90,17 +97,17 @@ fn main() {
                 .output()
                 .expect("command failed to start");
             println!("{}", String::from_utf8_lossy(&output.stdout));
-        },
-        Some(("stop", sub_matches))=> {
+        }
+        Some(("stop", sub_matches)) => {
             match profile {
                 Some(_) => {
                     (username, hostname, path) = env::load(profile);
-                },
+                }
                 None => {
                     username = sub_matches.get_one::<String>("username").unwrap().clone();
                     hostname = sub_matches.get_one::<String>("hostname").unwrap().clone();
                     path = sub_matches.get_one::<String>("path").unwrap().clone();
-                },
+                }
             }
 
             let output = Command::new("ssh")
@@ -110,7 +117,7 @@ fn main() {
                 .output()
                 .expect("command failed to start");
             println!("{}", String::from_utf8_lossy(&output.stdout));
-        },
+        }
         _ => unreachable!(),
     }
 }
