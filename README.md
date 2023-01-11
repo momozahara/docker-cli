@@ -36,6 +36,7 @@ compose up \
 --path <PATH> \ # required
 
 --profile <PROFILE> # optional
+--build <TARGET> # optional
 ```
 ### Down
 Down docker-compose.yaml at specific path.
