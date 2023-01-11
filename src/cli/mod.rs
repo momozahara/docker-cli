@@ -60,9 +60,9 @@ pub fn init() -> Command {
                         .action(ArgAction::Set),
                 )
                 .arg(
-                    Arg::new("build")
+                    Arg::new("target")
                         .required(false)
-                        .long("build")
+                        .long("target")
                         .action(ArgAction::Set),
                 ),
         )
@@ -119,6 +119,12 @@ pub fn init() -> Command {
                         .required(true)
                         .conflicts_with("profile")
                         .action(ArgAction::Set),
+                )
+                .arg(
+                    Arg::new("target")
+                        .required(false)
+                        .long("target")
+                        .action(ArgAction::Set),
                 ),
         )
         .subcommand(
@@ -142,6 +148,12 @@ pub fn init() -> Command {
                         .long("path")
                         .required(true)
                         .conflicts_with("profile")
+                        .action(ArgAction::Set),
+                )
+                .arg(
+                    Arg::new("target")
+                        .required(false)
+                        .long("target")
                         .action(ArgAction::Set),
                 ),
         )

@@ -11,7 +11,7 @@ fn main() {
     let username: String;
     let hostname: String;
     let path: String;
-    let build_target: Option<&String>;
+    let target: Option<&String>;
     let rmi: Option<&String>;
 
     match matches.subcommand() {
@@ -34,7 +34,7 @@ fn main() {
                 }
             }
 
-            build_target = sub_matches.get_one::<String>("build");
+            target = sub_matches.get_one::<String>("target");
 
             let output = Command::new("ssh")
                 .arg("-t")
@@ -42,9 +42,9 @@ fn main() {
                 .arg(format!("cd {}", path))
                 .arg("&& docker compose up")
                 .arg("-d")
-                .arg(match build_target {
-                    Some(target) => {
-                        format!("--build {}", target)
+                .arg(match target {
+                    Some(_target) => {
+                        format!("--build {}", _target)
                     }
                     None => "".to_owned(),
                 })
@@ -63,6 +63,7 @@ fn main() {
                     path = sub_matches.get_one::<String>("path").unwrap().clone();
                 }
             }
+
             rmi = sub_matches.get_one::<String>("rmi");
 
             let output = Command::new("ssh")
@@ -90,10 +91,18 @@ fn main() {
                 }
             }
 
+            target = sub_matches.get_one::<String>("target");
+
             let output = Command::new("ssh")
                 .arg("-t")
                 .arg(format!("{}@{}", username, hostname))
                 .arg(format!("cd {} && docker compose start", path))
+                .arg(match target {
+                    Some(_target) => {
+                        format!("{}", _target)
+                    }
+                    None => "".to_owned(),
+                })
                 .output()
                 .expect("command failed to start");
             println!("{}", String::from_utf8_lossy(&output.stdout));
@@ -110,10 +119,18 @@ fn main() {
                 }
             }
 
+            target = sub_matches.get_one::<String>("target");
+
             let output = Command::new("ssh")
                 .arg("-t")
                 .arg(format!("{}@{}", username, hostname))
                 .arg(format!("cd {} && docker compose stop", path))
+                .arg(match target {
+                    Some(_target) => {
+                        format!("{}", _target)
+                    }
+                    None => "".to_owned(),
+                })
                 .output()
                 .expect("command failed to start");
             println!("{}", String::from_utf8_lossy(&output.stdout));

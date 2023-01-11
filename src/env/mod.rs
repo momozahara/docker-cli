@@ -19,7 +19,7 @@ pub fn load(profile: Option<&String>) -> (String, String, String) {
     env::remove_var("HOSTNAME");
     env::remove_var("TARGET_PATH");
 
-    dotenv::from_path(target_path.as_path()).unwrap();
+    dotenv::from_path(target_path.as_path()).expect("profile does not existed");
 
     println!("{}", target_path.as_path().display());
 
@@ -58,4 +58,3 @@ pub fn create(username: String, hostname: String, c_path: String, profile: Optio
     )
     .unwrap();
 }
-

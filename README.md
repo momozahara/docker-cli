@@ -36,7 +36,7 @@ compose up \
 --path <PATH> \ # required
 
 --profile <PROFILE> # optional
---build <TARGET> # optional
+--target <TARGET> # optional
 ```
 ### Down
 Down docker-compose.yaml at specific path.
@@ -60,6 +60,7 @@ compose start \
 --path <PATH> \ # required
 
 --profile <PROFILE> # required
+--target <TARGET> # optional
 ```
 ### Stop
 Stop docker-compose.yml at specific path.
@@ -71,6 +72,7 @@ compose stop \
 --path <PATH> \ # required
 
 --profile <PROFILE> # optional
+--target <TARGET> # optional
 ```
 
 ## ROADMAP
