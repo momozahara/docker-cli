@@ -72,7 +72,7 @@ fn main() {
             rmi = sub_matches.get_one::<String>("rmi");
 
             let output = Command::new("ssh")
-                .arg("-t")
+                .arg("-tt")
                 .arg(format!("{}@{}", username, hostname))
                 .arg(format!("cd {}", path))
                 .arg("&& docker compose down")
@@ -101,7 +101,7 @@ fn main() {
             target = sub_matches.get_one::<String>("target");
 
             let output = Command::new("ssh")
-                .arg("-t")
+                .arg("-tt")
                 .arg(format!("{}@{}", username, hostname))
                 .arg(format!("cd {} && docker compose start", path))
                 .arg(match target {
@@ -131,7 +131,7 @@ fn main() {
             target = sub_matches.get_one::<String>("target");
 
             let output = Command::new("ssh")
-                .arg("-t")
+                .arg("-tt")
                 .arg(format!("{}@{}", username, hostname))
                 .arg(format!("cd {} && docker compose stop", path))
                 .arg(match target {
