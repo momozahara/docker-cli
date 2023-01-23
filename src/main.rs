@@ -51,8 +51,10 @@ fn main() {
                     }
                     None => "".to_owned(),
                 })
-                .output()
+                .spawn()
                 .expect("command failed to start");
+
+            let output = output.wait_with_output().unwrap();
 
             io::stdout().write_all(&output.stdout).unwrap();
             io::stderr().write_all(&output.stderr).unwrap();
@@ -80,8 +82,10 @@ fn main() {
                     Some(r) => format!("--rmi {}", r),
                     None => String::from(""),
                 })
-                .output()
+                .spawn()
                 .expect("command failed to start");
+
+            let output = output.wait_with_output().unwrap();
 
             io::stdout().write_all(&output.stdout).unwrap();
             io::stderr().write_all(&output.stderr).unwrap();
@@ -110,8 +114,10 @@ fn main() {
                     }
                     None => "".to_owned(),
                 })
-                .output()
+                .spawn()
                 .expect("command failed to start");
+
+            let output = output.wait_with_output().unwrap();
 
             io::stdout().write_all(&output.stdout).unwrap();
             io::stderr().write_all(&output.stderr).unwrap();
@@ -140,8 +146,10 @@ fn main() {
                     }
                     None => "".to_owned(),
                 })
-                .output()
+                .spawn()
                 .expect("command failed to start");
+
+            let output = output.wait_with_output().unwrap();
 
             io::stdout().write_all(&output.stdout).unwrap();
             io::stderr().write_all(&output.stderr).unwrap();
