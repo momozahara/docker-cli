@@ -1,7 +1,10 @@
 mod cli;
 mod env;
 
-use std::process::Command;
+use std::{
+    io::{self, Write},
+    process::Command,
+};
 
 fn main() {
     let matches = cli::init().get_matches();
@@ -37,7 +40,7 @@ fn main() {
             target = sub_matches.get_one::<String>("target");
 
             let output = Command::new("ssh")
-                .arg("-t")
+                .arg("-tt")
                 .arg(format!("{}@{}", username, hostname))
                 .arg(format!("cd {}", path))
                 .arg("&& docker compose up")
@@ -50,7 +53,9 @@ fn main() {
                 })
                 .output()
                 .expect("command failed to start");
-            println!("{}", String::from_utf8_lossy(&output.stdout));
+
+            io::stdout().write_all(&output.stdout).unwrap();
+            io::stderr().write_all(&output.stderr).unwrap();
         }
         Some(("down", sub_matches)) => {
             match profile {
@@ -77,7 +82,9 @@ fn main() {
                 })
                 .output()
                 .expect("command failed to start");
-            println!("{}", String::from_utf8_lossy(&output.stdout));
+
+            io::stdout().write_all(&output.stdout).unwrap();
+            io::stderr().write_all(&output.stderr).unwrap();
         }
         Some(("start", sub_matches)) => {
             match profile {
@@ -105,7 +112,9 @@ fn main() {
                 })
                 .output()
                 .expect("command failed to start");
-            println!("{}", String::from_utf8_lossy(&output.stdout));
+
+            io::stdout().write_all(&output.stdout).unwrap();
+            io::stderr().write_all(&output.stderr).unwrap();
         }
         Some(("stop", sub_matches)) => {
             match profile {
@@ -133,7 +142,9 @@ fn main() {
                 })
                 .output()
                 .expect("command failed to start");
-            println!("{}", String::from_utf8_lossy(&output.stdout));
+
+            io::stdout().write_all(&output.stdout).unwrap();
+            io::stderr().write_all(&output.stderr).unwrap();
         }
         _ => unreachable!(),
     }

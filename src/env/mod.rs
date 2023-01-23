@@ -21,8 +21,6 @@ pub fn load(profile: Option<&String>) -> (String, String, String) {
 
     dotenv::from_path(target_path.as_path()).expect("profile does not existed");
 
-    println!("{}", target_path.as_path().display());
-
     let username = env::var("USERNAME").unwrap();
     let hostname = env::var("HOSTNAME").unwrap();
     let path = env::var("TARGET_PATH").unwrap();
